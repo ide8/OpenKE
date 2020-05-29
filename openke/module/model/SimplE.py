@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 from .Model import Model
 
-class SimplE(Model):
 
+class SimplE(Model):
     def __init__(self, ent_tot, rel_tot, dim = 100):
         super(SimplE, self).__init__(ent_tot, rel_tot)
 
@@ -16,10 +16,12 @@ class SimplE(Model):
         nn.init.xavier_uniform_(self.rel_embeddings.weight.data)
         nn.init.xavier_uniform_(self.rel_inv_embeddings.weight.data)
 
-    def _calc_avg(self, h, t, r, r_inv):
+    @staticmethod
+    def _calc_avg(h, t, r, r_inv):
         return (torch.sum(h * r * t, -1) + torch.sum(h * r_inv * t, -1))/2
 
-    def _calc_ingr(self, h, r, t):
+    @staticmethod
+    def _calc_ingr(h, r, t):
         return torch.sum(h * r * t, -1)
 
     def forward(self, data):

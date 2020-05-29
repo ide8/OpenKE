@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
+
 from .Model import Model
+
 
 class ComplEx(Model):
     def __init__(self, ent_tot, rel_tot, dim = 100):
