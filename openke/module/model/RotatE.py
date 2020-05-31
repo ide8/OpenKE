@@ -3,16 +3,18 @@ import torch.nn as nn
 
 from .Model import Model
 
+from configs import Config
+
 
 class RotatE(Model):
-    def __init__(self, ent_tot, rel_tot, dim=100, margin=6.0, epsilon=2.0):
+    def __init__(self, ent_tot, rel_tot):
         super(RotatE, self).__init__(ent_tot, rel_tot)
 
-        self.margin = margin
-        self.epsilon = epsilon
+        self.margin = Config.margin
+        self.epsilon = Config.epsilon
 
-        self.dim_e = dim * 2
-        self.dim_r = dim
+        self.dim_e = Config.embedding_dim * 2
+        self.dim_r = Config.embedding_dim
 
         self.ent_embeddings = nn.Embedding(self.ent_tot, self.dim_e)
         self.rel_embeddings = nn.Embedding(self.rel_tot, self.dim_r)
@@ -39,7 +41,7 @@ class RotatE(Model):
             b=self.rel_embedding_range.item()
         )
 
-        self.margin = nn.Parameter(torch.Tensor([margin]))
+        self.margin = nn.Parameter(torch.Tensor([self.margin]))
         self.margin.requires_grad = False
 
     def _calc(self, h, t, r, mode):

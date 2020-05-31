@@ -7,29 +7,31 @@ class Config:
     use_gpu = True
 
     # MODEL
-    embedding_dim = 50
+    embedding_dim = 1024
+    margin = 200.0
+    epsilon = 2.0
 
     # TRAIN DATALOADER
     tri_file = None
     ent_file = None
     rel_file = None
-    batch_size = None
-    n_batches = 100
+    batch_size = 2000
+    n_batches = None
     n_threads = 8
-    train_sampling_mode = 'normal'
-    bern_flag = 1
+    train_sampling_mode = 'cross'
+    bern_flag = 0
     filter_flag = 1
-    neg_ent = 25
+    neg_ent = 64
     neg_rel = 0
 
     # TRAINING
     n_epochs = 1000
-    alpha = 0.1
-    opt_method = 'adagrad'
+    alpha = 0.002
+    opt_method = 'adam'
     weight_decay = 0
     lr_decay = 0
     regul_rate = 0.
-    l3_regul_rate = 0.
+    l3_regul_rate = 0.000005
 
     # TEST DATALOADER
     test_sampling_mode = 'link'
@@ -48,16 +50,16 @@ class Config:
 
 
 class Components:
-    from openke.module.model import RESCAL
-    from openke.module.loss import MarginLoss
+    from openke.module.model import DistMult
+    from openke.module.loss import SigmoidLoss
     from openke.data import TrainDataLoader, TestDataLoader
     from openke.module.strategy import NegativeSampling
     from openke.config import Trainer, Tester
 
     train_dataloader = TrainDataLoader
     test_dataloader = TestDataLoader
-    model = RESCAL
-    loss = MarginLoss(margin=1.0)
+    model = DistMult
+    loss = SigmoidLoss(adv_temperature=0.5)
     strategy = NegativeSampling
     trainer = Trainer
     tester = Tester

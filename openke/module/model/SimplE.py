@@ -1,13 +1,16 @@
 import torch
 import torch.nn as nn
+
 from .Model import Model
+
+from configs import Config
 
 
 class SimplE(Model):
-    def __init__(self, ent_tot, rel_tot, dim = 100):
+    def __init__(self, ent_tot, rel_tot):
         super(SimplE, self).__init__(ent_tot, rel_tot)
 
-        self.dim = dim
+        self.dim = Config.embedding_dim
         self.ent_embeddings = nn.Embedding(self.ent_tot, self.dim)
         self.rel_embeddings = nn.Embedding(self.rel_tot, self.dim)
         self.rel_inv_embeddings = nn.Embedding(self.rel_tot, self.dim)

@@ -13,6 +13,7 @@ from .RESCAL import RESCAL
 from .Analogy import Analogy
 from .SimplE import SimplE
 from .RotatE import RotatE
+from .HolE import HolE
 
 __all__ = [
     'Model',
@@ -21,6 +22,7 @@ __all__ = [
     'TransR',
     'TransH',
     'DistMult',
+    'HolE',
     'ComplEx',
     'RESCAL',
     'Analogy',

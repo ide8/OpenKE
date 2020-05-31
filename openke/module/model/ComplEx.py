@@ -3,12 +3,14 @@ import torch.nn as nn
 
 from .Model import Model
 
+from configs import Config
+
 
 class ComplEx(Model):
-    def __init__(self, ent_tot, rel_tot, dim = 100):
+    def __init__(self, ent_tot, rel_tot):
         super(ComplEx, self).__init__(ent_tot, rel_tot)
 
-        self.dim = dim
+        self.dim = Config.embedding_dim
         self.ent_re_embeddings = nn.Embedding(self.ent_tot, self.dim)
         self.ent_im_embeddings = nn.Embedding(self.ent_tot, self.dim)
         self.rel_re_embeddings = nn.Embedding(self.rel_tot, self.dim)

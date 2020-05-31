@@ -27,7 +27,7 @@ class Config:
     neg_rel = 0
 
     # TRAINING
-    n_epochs = 300
+    n_epochs = 1000
     alpha = 0.5
     opt_method = 'sgd'
     weight_decay = 0

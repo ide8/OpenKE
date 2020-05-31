@@ -7,7 +7,7 @@ class Config:
     use_gpu = True
 
     # MODEL
-    embedding_dim = 50
+    embedding_dim = 200
 
     # TRAIN DATALOADER
     tri_file = None
@@ -24,11 +24,11 @@ class Config:
 
     # TRAINING
     n_epochs = 1000
-    alpha = 0.1
+    alpha = 0.5
     opt_method = 'adagrad'
     weight_decay = 0
     lr_decay = 0
-    regul_rate = 0.
+    regul_rate = 1.
     l3_regul_rate = 0.
 
     # TEST DATALOADER
@@ -48,16 +48,16 @@ class Config:
 
 
 class Components:
-    from openke.module.model import RESCAL
-    from openke.module.loss import MarginLoss
+    from openke.module.model import Analogy
+    from openke.module.loss import SoftplusLoss
     from openke.data import TrainDataLoader, TestDataLoader
     from openke.module.strategy import NegativeSampling
     from openke.config import Trainer, Tester
 
     train_dataloader = TrainDataLoader
     test_dataloader = TestDataLoader
-    model = RESCAL
-    loss = MarginLoss(margin=1.0)
+    model = Analogy
+    loss = SoftplusLoss()
     strategy = NegativeSampling
     trainer = Trainer
     tester = Tester

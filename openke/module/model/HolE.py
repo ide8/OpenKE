@@ -3,18 +3,20 @@ import torch.nn as nn
 
 from .Model import Model
 
+from configs import Config
+
 
 class HolE(Model):
-    def __init__(self, ent_tot, rel_tot, dim=100, margin=None, epsilon=None):
+    def __init__(self, ent_tot, rel_tot):
         super(HolE, self).__init__(ent_tot, rel_tot)
 
-        self.dim = dim
-        self.margin = margin
-        self.epsilon = epsilon
+        self.dim = Config.embedding_dim
+        self.margin = Config.margin
+        self.epsilon = Config.epsilon
         self.ent_embeddings = nn.Embedding(self.ent_tot, self.dim)
         self.rel_embeddings = nn.Embedding(self.rel_tot, self.dim)
 
-        if margin is None or epsilon is None:
+        if self.margin is None or self.epsilon is None:
             nn.init.xavier_uniform_(self.ent_embeddings.weight.data)
             nn.init.xavier_uniform_(self.rel_embeddings.weight.data)
         else:
